@@ -4,22 +4,6 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 
-
-
-def get_files_info(working_directory, directory=None):
-    working_directory_contents = os.listdir(working_directory)
-
-    directory = "." if directory is None else directory # clean input
-
-    if directory not in working_directory_contents:
-        return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
-    
-    if not os.path.isdir(os.path.join(working_directory, directory)):
-        return f'Error: "{directory}" is not a directory'
-    return "hoo-rah"
-
-
-
 def initialize_gemini():
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -37,9 +21,6 @@ def main():
     if len(sys.argv) == 3:
         verbose_mode = sys.argv[2] == "--verbose"
     
-    print(get_files_info("calculator/", "."))
-    sys.exit(0)
-        
     user_prompt = sys.argv[1] 
 
     client, model = initialize_gemini()
